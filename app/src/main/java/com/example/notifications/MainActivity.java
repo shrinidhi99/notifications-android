@@ -29,6 +29,8 @@ import java.util.List;
 
 import static com.example.notifications.App.CHANNEL_1_ID;
 import static com.example.notifications.App.CHANNEL_2_ID;
+import static com.example.notifications.App.CHANNEL_3_ID;
+import static com.example.notifications.App.GROUP_1_ID;
 
 public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManagerCompat;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && isChannelBlocked(CHANNEL_1_ID)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && isChannelBlocked(CHANNEL_1_ID)) {
             openChannelSettings(CHANNEL_1_ID);
             return;
         }
@@ -274,4 +276,13 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
         startActivity(intent);
     }
+
+    public void deleteNotificationChannels(View v) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            //manager.deleteNotificationChannel(CHANNEL_3_ID);
+            //manager.deleteNotificationChannelGroup(GROUP_1_ID);
+        }
+    }
+
 }
