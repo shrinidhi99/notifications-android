@@ -130,12 +130,16 @@ public class MainActivity extends AppCompatActivity {
 //        Bitmap artwork = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
 
-        final int progressMax = 100;
+//        final int progressMax = 100;
+        String title1 = "Title1";
+        String title2 = "Title2";
+        String message1 = "Message1";
+        String message2 = "Message2";
 
-        final NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+        Notification notification1 = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setSmallIcon(R.drawable.ic_looks_two_black_24dp)
-                .setContentTitle("Download")
-                .setContentText("Download in progress")
+                .setContentTitle(title1)
+                .setContentText(message1)
 //                .setLargeIcon(artwork)
 //                .addAction(R.drawable.ic_dislike, "Dislike", null)
 //                .addAction(R.drawable.ic_previous, "Previous", null)
@@ -157,26 +161,75 @@ public class MainActivity extends AppCompatActivity {
 //                        .setBigContentTitle("Big Content Title")
 //                        .setSummaryText("Summary Text"))
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setOngoing(true)
-                .setOnlyAlertOnce(true)
-                .setProgress(progressMax, 0, true);
+                .setGroup("example_group")
+                .build();
+        Notification notification2 = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_looks_two_black_24dp)
+                .setContentTitle(title2)
+                .setContentText(message2)
+//                .setLargeIcon(artwork)
+//                .addAction(R.drawable.ic_dislike, "Dislike", null)
+//                .addAction(R.drawable.ic_previous, "Previous", null)
+//                .addAction(R.drawable.ic_pause, "Pause", null)
+//                .addAction(R.drawable.ic_next, "Next", null)
+//                .addAction(R.drawable.ic_like, "Like", null)
+//                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+//                        .setShowActionsInCompactView(1, 2, 3)
+//                        .setMediaSession(mediaSessionCompat.getSessionToken()))
+//                .setSubText("Sub Text")
+//                .setStyle(new NotificationCompat.InboxStyle()
+//                        .addLine("This is line 1")
+//                        .addLine("This is line 2")
+//                        .addLine("This is line 3")
+//                        .addLine("This is line 4")
+//                        .addLine("This is line 5")
+//                        .addLine("This is line 6")
+//                        .addLine("This is line 7")
+//                        .setBigContentTitle("Big Content Title")
+//                        .setSummaryText("Summary Text"))
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setGroup("example_group")
+                .build();
+//                .setOngoing(true)
+//                .setOnlyAlertOnce(true)
+//                .setProgress(progressMax, 0, true);
+//        for (int i = 0; i < 5; i++) {
+//            SystemClock.sleep(2000);
+//            notificationManagerCompat.notify(i, notification);
+//        }
+        Notification summaryNotification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_reply)
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine(title2 + " " + message2)
+                        .addLine(title1 + " " + message1)
+                        .setBigContentTitle(title1 + " " + message1)
+                        .setSummaryText("user@example.com"))
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setGroup("example_group")
+                .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
+                .setGroupSummary(true)
+                .build();
 
-        notificationManagerCompat.notify(2, notification.build());
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(2000);
-                for (int progress = 0; progress <= progressMax; progress += 20) {
-//                    notification.setProgress(progressMax, progress, false);
-//                    notificationManagerCompat.notify(2, notification.build());
-                    SystemClock.sleep(1000);
-                }
-                notification.setContentText("Download finished")
-                        .setProgress(0, 0, false)
-                        .setOngoing(false);
-                notificationManagerCompat.notify(2, notification.build());
-            }
-        }).start();
+        SystemClock.sleep(2000);
+        notificationManagerCompat.notify(2, notification1);
+        SystemClock.sleep(2000);
+        notificationManagerCompat.notify(3, notification2);
+        SystemClock.sleep(2000);
+        notificationManagerCompat.notify(4, summaryNotification);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                SystemClock.sleep(2000);
+//                for (int progress = 0; progress <= progressMax; progress += 20) {
+////                    notification.setProgress(progressMax, progress, false);
+////                    notificationManagerCompat.notify(2, notification.build());
+//                    SystemClock.sleep(1000);
+//                }
+//                notification.setContentText("Download finished")
+//                        .setProgress(0, 0, false)
+//                        .setOngoing(false);
+//                notificationManagerCompat.notify(2, notification.build());
+//            }
+//        }).start();
     }
 }
